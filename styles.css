@@ -1,0 +1,230 @@
+/* --- ESTILOS GLOBALES Y DE LAYOUT --- */
+body {
+    background-color: #333;
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+h1 {
+    color: #fff;
+    font-weight: 900; 
+    letter-spacing: 2px;
+    font-size: 2.5em;
+    text-transform: uppercase;
+}
+
+/* --- CONTENEDOR PRINCIPAL DEL JUEGO --- */
+#gameContainer {
+    position: relative;
+    width: 95vw;
+    height: 75vh;
+    max-width: 1200px;
+    max-height: 700px;
+    margin-bottom: 20px;
+}
+
+canvas {
+    width: 100%;
+    height: 100%;
+    background-color: #34495E;
+    border: 2px solid #fff;
+    box-sizing: border-box;
+}
+
+/* --- MENÚ DE INICIO Y OVERLAYS --- */
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 20;
+    opacity: 1;
+    transition: opacity 0.3s ease-in-out, visibility 0s 0s;
+    visibility: visible;
+}
+
+.game-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease-in-out, visibility 0s 0.3s;
+    pointer-events: none; /* <<<< LA CORRECCIÓN DEFINITIVA */
+}
+
+#startMenu, #pauseMenu, #gameOverMenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #2C3E50;
+    padding: 25px 30px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    width: 90%;
+    max-width: 380px;
+    box-sizing: border-box;
+    color: white;
+    transform: scale(1);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.game-overlay.hidden #startMenu,
+.game-overlay.hidden #pauseMenu,
+.game-overlay.hidden #gameOverMenu {
+    transform: scale(0.9);
+}
+
+#startMenu h2, #pauseMenu h2 {
+    font-weight: 900;
+    text-transform: uppercase;
+    text-shadow: none;
+}
+
+#startMenu h2 {
+    font-size: 3.5em;
+    margin: 0 0 25px 0;
+    color: #1ABC9C;
+}
+
+.menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 35px;
+    width: 100%;
+}
+
+.menu-options fieldset {
+    border: 1px solid #4a657c;
+    border-radius: 12px;
+    padding: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.menu-options legend {
+    padding: 0 10px;
+    color: #95a5a6;
+}
+
+.menu-options button {
+    font-family: 'Nunito', sans-serif;
+    background: transparent;
+    color: #ecf0f1;
+    border: 2px solid #34495E;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-grow: 1;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.menu-options button:hover {
+    background: #34495E;
+    border-color: #4a657c;
+}
+
+.menu-options button.active {
+    background: #1ABC9C;
+    border-color: #1ABC9C;
+    color: white;
+}
+
+.menu-options button:active {
+    transform: scale(0.96);
+    background-color: #1ABC9C;
+}
+
+#playButton {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.5em;
+    padding: 12px 45px;
+    background: #1ABC9C;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+#playButton:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(26, 188, 156, 0.4);
+}
+
+#playButton:active {
+    transform: scale(0.95);
+    box-shadow: none;
+}
+
+#scoreBoard {
+    display: flex;
+    gap: 40px;
+    font-size: 20px;
+    font-weight: 700;
+    min-height: 24px;
+    width: 90%;
+    max-width: 450px;
+    justify-content: space-between;
+}
+
+#scoreContainer { font-size: inherit; }
+#highScoreContainer { font-size: inherit; color: #aaa; }
+
+#touchControls {
+    display: none;
+    position: relative;
+    width: 160px;
+    height: 160px;
+    margin-top: 20px;
+    z-index: 10;
+    background: rgba(50, 50, 50, 0.7);
+    border: 2px solid #fff;
+    border-radius: 50%;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#touchControls.visible { display: flex; justify-content: center; align-items: center; }
+#touchControls .arrow { position: absolute; color: rgba(255, 255, 255, 0.8); font-size: 28px; pointer-events: none; transition: all 0.1s ease-out; }
+#upArrow { top: 12px; }
+#downArrow { bottom: 12px; }
+#leftArrow { left: 12px; top: 50%; transform: translateY(-50%); }
+#rightArrow { right: 12px; top: 50%; transform: translateY(-50%); }
+#touchControls .arrow.active { color: #ffcc00; transform: scale(1.2); text-shadow: 0 0 8px #ffcc00; }
+#leftArrow.active { transform: translateY(-50%) scale(1.2); }
+#rightArrow.active { transform: translateY(-50%) scale(1.2); }
+
+#pauseMenu { max-width: 320px; }
+.pause-icon { font-size: 3em; line-height: 1; margin-bottom: 10px; color: #1ABC9C; }
+#pauseMenu h2 { font-size: 2.5em; margin: 0 0 20px 0; color: white; }
+.game-info { background: #34495E; border-radius: 8px; padding: 10px 15px; margin-bottom: 25px; font-size: 0.9em; color: #bdc3c7; text-align: left; width: 100%; }
+.game-info div { display: flex; justify-content: space-between; }
+.game-info span { font-weight: bold; color: white; }
+.pause-buttons, .game-over-buttons { display: flex; flex-direction: column; width: 100%; gap: 15px; }
+.pause-buttons button, .game-over-buttons button { font-family: 'Nunito', sans-serif; border: none; border-radius: 8px; padding: 12px; font-size: 1.2em; font-weight: bold; cursor: pointer; transition: transform 0.2s, background-color 0.2s; }
+.pause-buttons button:active, .game-over-buttons button:active { transform: scale(0.97); }
+#resumeButton, #playAgainButton { background-color: #1ABC9C; color: white; }
+#resumeButton:hover, #playAgainButton:hover { background-color: #16A085; }
+#restartFromPauseButton, #mainMenuButton { background-color: #95a5a6; color: #2c3e50; font-size: 1em; }
+#restartFromPauseButton:hover, #mainMenuButton:hover { background-color: #7f8c8d; }
+
+#gameOverMenu { max-width: 340px; }
+#gameOverTitle { font-size: 2.5em; font-weight: 900; margin-bottom: 20px; color: #E74C3C; }
+#gameOverTitle.new-record { color: #F1C40F; font-size: 2.2em; }
+#finalScores { text-align: center; font-size: 1.1em; }
+.game-over-buttons { margin-top: 25px; }
+
+#restartButton { display: none; } /* Ocultamos el botón de reinicio viejo */

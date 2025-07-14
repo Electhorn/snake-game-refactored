@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake - Refactored</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <h1>Snake</h1>
+  <div id="gameContainer" style="position: relative;">
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="menuOverlay" class="game-overlay">
+      <!-- 2. La tarjeta flotante que está dentro del overlay -->
+      <div id="startMenu">
+        <h2>SNAKE</h2>
+        <div class="menu-options">
+          <fieldset>
+            <legend>Dificultad</legend>
+            <button data-setting="difficulty" data-value="easy" class="active">Fácil</button>
+            <button data-setting="difficulty" data-value="medium">Normal</button>
+            <button data-setting="difficulty" data-value="hard">Difícil</button>
+          </fieldset>
+          <!-- Ya no hay opciones de tamaño -->
+        </div>
+        <button id="playButton">Jugar</button>
+      </div>
+    </div>
+    <div id="pauseOverlay" class="game-overlay hidden">
+      <div id="pauseMenu">
+        <div class="pause-icon">⏸</div>
+        <h2>PAUSA</h2>
+        <div id="gameInfo" class="game-info">
+          <!-- La información se llenará con JS -->
+        </div>
+        <div class="pause-buttons">
+          <button id="resumeButton">Reanudar</button>
+          <button id="restartFromPauseButton">Reiniciar</button>
+        </div>
+      </div>
+    </div>
+    <div id="gameOverOverlay" class="game-overlay hidden">
+      <div id="gameOverMenu">
+        <div id="gameOverTitle">¡Has perdido!</div>
+        <div id="finalScores" class="game-info">
+          <!-- Los puntajes se llenarán con JS -->
+        </div>
+        <div class="game-over-buttons">
+          <button id="playAgainButton">Volver a jugar</button>
+          <button id="mainMenuButton">Menú</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="scoreBoard">
+    <div id="scoreContainer">Puntuación: <span id="scoreValue">0</span></div>
+    <div id="highScoreContainer">Mejor: <span id="highScoreValue">0</span></div>
+  </div>
+
+  <button id="restartButton" style="display:none;">Reiniciar Juego</button>
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>
