@@ -1,4 +1,4 @@
-// --- src/ui.js (VERSIÓN FINAL Y CORREGIDA) ---
+// --- src/ui.js (Volviendo a 'click' para máxima compatibilidad) ---
 
 let scoreElement,
   highScoreElement,
@@ -33,7 +33,8 @@ export function initUI() {
 }
 
 export function setupMenu(playCallback, optionsCallback) {
-  playButton.addEventListener("click", playCallback);
+  playButton.addEventListener("click", playCallback); // <-- Volvemos a 'click'
+
   menuOptionsContainer.addEventListener("click", (e) => {
     if (e.target.tagName === "BUTTON") {
       const { setting, value } = e.target.dataset;
@@ -45,43 +46,40 @@ export function setupMenu(playCallback, optionsCallback) {
   });
 }
 
+export function setupPauseMenu(resumeCallback, restartCallback) {
+  resumeButton.addEventListener("click", resumeCallback); // <-- Volvemos a 'click'
+  restartFromPauseButton.addEventListener("click", restartCallback); // <-- Volvemos a 'click'
+}
+
+export function setupGameOverMenu(playAgainCallback, mainMenuCallback) {
+  playAgainButton.addEventListener("click", playAgainCallback); // <-- Volvemos a 'click'
+  mainMenuButton.addEventListener("click", mainMenuCallback); // <-- Volvemos a 'click'
+}
+
+// ... (El resto del archivo ui.js no necesita cambios)
 export function showMenu() {
   menuOverlay.classList.remove("hidden");
 }
 export function hideMenu() {
   menuOverlay.classList.add("hidden");
 }
-
 export function updateScoreDisplay(score) {
   scoreElement.textContent = score;
 }
 export function updateHighScoreDisplay(highScore) {
   highScoreElement.textContent = highScore;
 }
-
-export function setupPauseMenu(resumeCallback, restartCallback) {
-  resumeButton.addEventListener("click", resumeCallback);
-  restartFromPauseButton.addEventListener("click", restartCallback);
-}
-
 export function showPauseMenu() {
   pauseOverlay.classList.remove("hidden");
 }
 export function hidePauseMenu() {
   pauseOverlay.classList.add("hidden");
 }
-
 export function updateGameInfo(options) {
   const difficulty =
     options.difficulty.charAt(0).toUpperCase() + options.difficulty.slice(1);
   gameInfoContainer.innerHTML = `<div>Dificultad: <span>${difficulty}</span></div>`;
 }
-
-export function setupGameOverMenu(playAgainCallback, mainMenuCallback) {
-  playAgainButton.addEventListener("click", playAgainCallback);
-  mainMenuButton.addEventListener("click", mainMenuCallback);
-}
-
 export function showGameOverMenu(score, highScore, isNewRecord) {
   if (isNewRecord) {
     gameOverTitle.textContent = "¡Nuevo Récord!";
@@ -96,7 +94,6 @@ export function showGameOverMenu(score, highScore, isNewRecord) {
   `;
   gameOverOverlay.classList.remove("hidden");
 }
-
 export function hideGameOverMenu() {
   gameOverOverlay.classList.add("hidden");
 }

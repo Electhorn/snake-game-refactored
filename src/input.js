@@ -1,4 +1,4 @@
-// --- src/input.js (VERSIÓN FINAL Y CORREGIDA) ---
+// --- src/input.js (Final y Correcto) ---
 
 let onDirectionChangeCallback = null;
 let onPauseCallback = null;
@@ -41,8 +41,10 @@ function handleKeyDown(event) {
   }
 }
 
+// --- Lógica Táctil Corregida ---
+
 function handleTouchStart(event) {
-  event.preventDefault();
+  // NO llamamos a preventDefault aquí para permitir los clics en los botones.
   const firstTouch = event.touches[0];
   touchStartX = firstTouch.clientX;
   touchStartY = firstTouch.clientY;
@@ -50,7 +52,9 @@ function handleTouchStart(event) {
 }
 
 function handleTouchMove(event) {
+  // SÍ llamamos a preventDefault aquí para evitar el scroll DURANTE el swipe.
   event.preventDefault();
+
   if (!touchStartX || !touchStartY || swipeHandled) {
     return;
   }
@@ -71,7 +75,6 @@ function handleTouchMove(event) {
 }
 
 function handleTouchEnd(event) {
-  event.preventDefault();
   touchStartX = 0;
   touchStartY = 0;
 }
@@ -80,11 +83,11 @@ function setupTouchInput() {
   const gameContainer = document.getElementById("gameContainer");
   if (gameContainer) {
     gameContainer.addEventListener("touchstart", handleTouchStart, {
-      passive: false,
-    });
+      passive: true,
+    }); // passive:true es mejor si no prevenimos
     gameContainer.addEventListener("touchmove", handleTouchMove, {
       passive: false,
-    });
+    }); // passive:false aquí porque SÍ prevenimos
     gameContainer.addEventListener("touchend", handleTouchEnd, {
       passive: false,
     });
