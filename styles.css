@@ -183,30 +183,6 @@ canvas {
 #scoreContainer { font-size: inherit; }
 #highScoreContainer { font-size: inherit; color: #aaa; }
 
-#touchControls {
-    display: none;
-    position: relative;
-    width: 160px;
-    height: 160px;
-    margin-top: 20px;
-    z-index: 10;
-    background: rgba(50, 50, 50, 0.7);
-    border: 2px solid #fff;
-    border-radius: 50%;
-    user-select: none;
-    -webkit-user-select: none;
-}
-
-#touchControls.visible { display: flex; justify-content: center; align-items: center; }
-#touchControls .arrow { position: absolute; color: rgba(255, 255, 255, 0.8); font-size: 28px; pointer-events: none; transition: all 0.1s ease-out; }
-#upArrow { top: 12px; }
-#downArrow { bottom: 12px; }
-#leftArrow { left: 12px; top: 50%; transform: translateY(-50%); }
-#rightArrow { right: 12px; top: 50%; transform: translateY(-50%); }
-#touchControls .arrow.active { color: #ffcc00; transform: scale(1.2); text-shadow: 0 0 8px #ffcc00; }
-#leftArrow.active { transform: translateY(-50%) scale(1.2); }
-#rightArrow.active { transform: translateY(-50%) scale(1.2); }
-
 #pauseMenu { max-width: 320px; }
 .pause-icon { font-size: 3em; line-height: 1; margin-bottom: 10px; color: #1ABC9C; }
 #pauseMenu h2 { font-size: 2.5em; margin: 0 0 20px 0; color: white; }

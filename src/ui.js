@@ -1,6 +1,5 @@
-// --- src/ui.js (VERSIÓN FINAL Y ROBUSTA) ---
+// --- src/ui.js (VERSIÓN FINAL Y CORREGIDA) ---
 
-// 1. Declaramos las variables aquí, pero no las asignamos.
 let scoreElement,
   highScoreElement,
   menuOverlay,
@@ -16,7 +15,6 @@ let scoreElement,
   playAgainButton,
   mainMenuButton;
 
-// 2. Creamos una función de inicialización que se llamará una sola vez.
 export function initUI() {
   scoreElement = document.getElementById("scoreValue");
   highScoreElement = document.getElementById("highScoreValue");
@@ -34,7 +32,6 @@ export function initUI() {
   mainMenuButton = document.getElementById("mainMenuButton");
 }
 
-// 3. El resto de las funciones ahora usarán las variables que initUI() ha llenado.
 export function setupMenu(playCallback, optionsCallback) {
   playButton.addEventListener("click", playCallback);
   menuOptionsContainer.addEventListener("click", (e) => {
@@ -102,26 +99,4 @@ export function showGameOverMenu(score, highScore, isNewRecord) {
 
 export function hideGameOverMenu() {
   gameOverOverlay.classList.add("hidden");
-}
-
-export function showTouchControls() {
-  touchControls.classList.add("visible");
-}
-export function getTouchControlsElement() {
-  return touchControls;
-}
-
-export function updateArrowActiveState(direction) {
-  upArrow.classList.toggle("active", direction === "up");
-  downArrow.classList.toggle("active", direction === "down");
-  leftArrow.classList.toggle("active", direction === "left");
-  rightArrow.classList.toggle("active", direction === "right");
-}
-
-// El botón de reinicio viejo ya no se usa, pero dejamos las funciones por si acaso.
-export function showRestartButton() {
-  /* No-op */
-}
-export function hideRestartButton() {
-  /* No-op */
 }
